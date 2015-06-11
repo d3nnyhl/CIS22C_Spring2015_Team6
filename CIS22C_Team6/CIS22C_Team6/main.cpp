@@ -70,6 +70,8 @@ int fileCount(ifstream &inFile) {
 	while (getline(inFile, lineCount)) {
 		count++;
 	}
+	inFile.close();
+	inFile.open(fileName);
 	return count;
 }
 //**************************************************************
