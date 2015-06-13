@@ -10,28 +10,9 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="BinaryNode.h" />
-    <ClInclude Include="BinarySearchTree.h" />
-    <ClInclude Include="BinaryTree.h" />
-    <ClInclude Include="Cellphone.h" />
-    <ClInclude Include="DynamicQueue.h" />
-    <ClInclude Include="hash.h" />
-    <ClInclude Include="Queue.h" />
-    <ClInclude Include="Stack.h" />
-    <ClInclude Include="StructManager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Cellphone.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="StructureManager.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Cellphone.txt" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{334D23C1-944D-4676-8A7F-7C334D385E1F}</ProjectGuid>
-    <RootNamespace>final</RootNamespace>
+    <ProjectGuid>{0E66EE28-96BF-48F3-A419-EB3A4D5B8871}</ProjectGuid>
+    <RootNamespace>CIS22C_Team6</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -82,6 +63,25 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="BinaryNode.h" />
+    <ClInclude Include="BinarySearchTree.h" />
+    <ClInclude Include="BinaryTree.h" />
+    <ClInclude Include="Cellphone.h" />
+    <ClInclude Include="DynamicQueue.h" />
+    <ClInclude Include="hash.h" />
+    <ClInclude Include="Queue.h" />
+    <ClInclude Include="Stack.h" />
+    <ClInclude Include="StructManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="cellphones.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Cellphone.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="StructManager.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
