@@ -1,10 +1,9 @@
 
-
 #ifndef _STRUCTMANAGER_H
 #define	_STRUCTMANAGER_H
 
 #include "BinarySearchTree.h"
-//#include "hash.h"
+#include "hash.h"
 #include "CellPhone.h"
 #include <fstream>
 #include <iomanip>
@@ -18,7 +17,7 @@ const double DEFAULT_LOAD_FACTOR = 0.7;                 //Default load factor to
 class StructManager
 {
 private:
-	//Hash<CellPhone>*                 hash_Table;	   //Hash Table used for searching
+	Hash<CellPhone>*                 hash_Table;	   //Hash Table used for searching
 	BinarySearchTree<CellPhone> *      main_BST;	   //BST for sorting by unique primary key
 	BinarySearchTree<CellPhone> * secondary_BST;	   //BST for sorting by secondary key
 	void             (*printItem) (CellPhone &);	   // Function Pointer to hold visit function to print tree.

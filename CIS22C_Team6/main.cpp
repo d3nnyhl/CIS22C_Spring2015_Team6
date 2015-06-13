@@ -40,7 +40,7 @@ int main()
 	inFile.close();
 	farewell();
 
-
+	system("pause");
 	return 0;
 }
 
@@ -98,6 +98,8 @@ void readFile(StructManager *structManager, ifstream &inFile)
 		CellPhone *newCellPhone = new CellPhone(id, name, model, memory, apps, songs);
 
 		structManager->buildList(newCellPhone);
+
+		delete newCellPhone;
 	}
 }
 

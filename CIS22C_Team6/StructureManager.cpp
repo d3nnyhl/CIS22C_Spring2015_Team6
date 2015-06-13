@@ -2,7 +2,7 @@
 
 StructManager::StructManager(int itemCount, void (*display)(CellPhone & item))
 {
-	//hash_Table = new Hash<CellPhone>();
+	hash_Table = new Hash<CellPhone>();
 	main_BST= new BinarySearchTree<CellPhone>();
 	printItem = display;
 	//arraySize = tableSize;
