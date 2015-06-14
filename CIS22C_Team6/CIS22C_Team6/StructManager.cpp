@@ -1,10 +1,12 @@
 #include "StructManager.h"
 
-StructManager::StructManager(int itemCount, void (*display)(CellPhone & item))
+StructManager::StructManager(int itemCount, void(*display)(CellPhone & item), int(*hashFunction)(const string& key, const int &arraySize))
 {
-	hash_Table = new Hash<CellPhone>();
+	hash_Table = new Hash<CellPhone, string>(determineHashSize(itemCount));
+	cout << itemCount << " " << determineHashSize(itemCount) << endl;
 	main_BST= new BinarySearchTree<CellPhone>();
 	printItem = display;
+	hashGenerator = hashFunction;
 	//arraySize = tableSize;
 }
 
@@ -16,6 +18,7 @@ StructManager::StructManager(int itemCount, void (*display)(CellPhone & item))
 void StructManager::buildList(CellPhone* phone)
 {
 	main_BST->insert(*phone);
+	hash_Table->hash_insert(hashGenerator, phone);
 }
 
 //**************************************************************
@@ -235,6 +238,7 @@ void StructManager::listSubMenu()
 		{
 		case 1:
 			cout << "list unsorted" << endl << endl;
+			hash_Table->printTable(printItem);
 			break;
 
 		case 2:
@@ -249,6 +253,7 @@ void StructManager::listSubMenu()
 
 		case 4:
 			cout << "indented list" << endl << endl;
+			hash_Table->printHashT(printItem);
 			break;
 
 		case 5:
@@ -278,16 +283,34 @@ void StructManager::listSubMenu()
 
 }
 
-///*
-//Determine the hash table size.
-//Takes the initial amount of items in the file and divides it by
-//the default load factor. Then, finds the next prime number and returns it.
-//*/
-//int StructManager::determineHashSize(int fileCount)
-//{
-//	return nextPrime(fileCount / DEFAULT_LOAD_FACTOR));
-//
-//}
+/*
+Determine the hash table size.
+Takes the initial amount of items in the file and divides it by
+the default load factor. Then, finds the next prime number and returns it.
+*/
+int StructManager::determineHashSize(int fileCount)
+{
+	return nextPrime((fileCount / DEFAULT_LOAD_FACTOR));
+
+}
+
+int StructManager::nextPrime(int fileCount)
+{
+	while (!isPrime(fileCount))
+		fileCount++;
+	return fileCount;
+}
+
+bool StructManager::isPrime(int num)
+{
+	for (int i = 2; i < num; i++)
+	{
+		if (num % i == 0)
+			return false;
+	}
+	return true;
+}
+
 
 StructManager::~StructManager()
 {
