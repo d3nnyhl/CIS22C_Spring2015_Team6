@@ -176,12 +176,26 @@ void StructManager::searchSubMenu()
 
 	while (repeatMenu == true)
 	{
+		string search_ID = "";
+		CellPhone tempTarget;
+		tempTarget.setID("empty");
+		CellPhone returnedItem;
 
 		switch (choice = getNum())
 		{
 		case 1:
 			cout << "Search by Primary Key" << endl << endl;
+			cout << "Enter search key: ";
+			cin >> search_ID;
+			tempTarget.setID(search_ID);
 			// if found repeatMenu = false
+			if (hash_Table->hash_search(hashGenerator, tempTarget, returnedItem))
+			{
+				cout << "Item Found: \n";
+				printItem(returnedItem);
+			}
+			else
+				cout << "Item not found.\n";
 			// if not found repeatMenu = true
 			break;
 

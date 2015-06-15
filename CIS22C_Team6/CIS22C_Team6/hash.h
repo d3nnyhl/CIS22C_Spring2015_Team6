@@ -26,7 +26,7 @@ public:
 	void printTable(void print(ItemType &anItem));
 	void printHashT(void print(ItemType &anItem));
 	bool hash_insert(int getHash(const KeyType &id, const int &size), ItemType *item);
-	bool hash_search(int getHash(const KeyType &id, const int &size), const ItemType &returnItem);		// Needs parameter with item to be searched.
+	bool hash_search(int getHash(const KeyType &id, const int &size), ItemType &targetItem, ItemType &returnItem);	
 	//	bool hash_delete(const ItemType &item);
 };
 
@@ -51,18 +51,21 @@ bool Hash<ItemType, KeyType>::hash_insert(int getHash(const KeyType &id, const i
 }
 
 template<class ItemType, class KeyType>
-bool Hash<ItemType, KeyType>::hash_search(int getHash(const KeyType &id, const int &size), const ItemType &returnItem)
+bool Hash<ItemType, KeyType>::hash_search(int getHash(const KeyType &id, const int &size), ItemType &targetItem, ItemType &returnItem)
 {
 	//not implemented.
-	/*int index = getHash(item->getID(), tableSize);
+	int index = getHash(targetItem.getID(), tableSize);
 	if (list[index].empty())
 		return false;
 	for (int num = 0; num < list[index].size(); num++)
 	{
-		if ()
+		if (list[index][num].getID() == targetItem.getID())
+		{
+			returnItem = list[index][num];
+			return true;
+		}
 	}
-		*/
-	return true;
+	return false;
 }
 
 //**************************************************************

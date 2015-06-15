@@ -47,7 +47,7 @@ public:
 	void listSubMenu();
 
 	//int hashGenerator(const string& key, const int &arraySize);
-	//void InsertManager();
+	void InsertManager();
 	//void SearchManager();
 	//void DeleteManager();
 	//void printList();
