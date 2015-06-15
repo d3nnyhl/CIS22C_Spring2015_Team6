@@ -14,6 +14,7 @@ using namespace std;
 void welcome();
 int fileCount(ifstream &inFile);
 void readFile(StructManager* structManager, ifstream &inFile);
+int hashGenerator(const string& key, const int &arraySize);
 void displayPhone(CellPhone & anItem);
 void farewell();
 
@@ -33,14 +34,14 @@ int main()
 	}
 	else
 	{
-		StructManager *driver = new StructManager(fileCount(inFile), displayPhone);
+		StructManager *driver = new StructManager(fileCount(inFile), displayPhone, hashGenerator);
 		readFile(driver, inFile);
 		driver->menuManager();
 	}
 	inFile.close();
 	farewell();
 
-	system("pause");
+	//system("pause");
 	return 0;
 }
 
@@ -111,6 +112,21 @@ void displayPhone(CellPhone & anItem)
 	cout << fixed << setprecision(1);
 	cout  << anItem.getID() << " " << anItem.getName() << " " << anItem.getModel()  << " ";
 	cout << anItem.getMemory() << " " << anItem.getApps()  << " " << anItem.getSongs() << " " << endl;
+}
+
+int hashGenerator(const string& key, const int &arraySize)
+{
+	unsigned int h = 5381;
+	int index;
+
+	for (unsigned int i = 0; i < key.size(); i++)
+	{
+		h = (h << 5) + h + key[i];
+	}
+
+	index = h % arraySize;
+	//cout << "the hashed index is " << index<< endl;
+	return index;
 }
 
 //**************************************************************

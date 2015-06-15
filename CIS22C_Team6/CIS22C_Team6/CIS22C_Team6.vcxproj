@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0E66EE28-96BF-48F3-A419-EB3A4D5B8871}</ProjectGuid>
+    <ProjectGuid>{B3E40E2D-11EF-422D-AECC-A5E5DE9F5B0B}</ProjectGuid>
     <RootNamespace>CIS22C_Team6</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -47,6 +47,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -68,7 +69,6 @@
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="Cellphone.h" />
-    <ClInclude Include="DynamicQueue.h" />
     <ClInclude Include="hash.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
