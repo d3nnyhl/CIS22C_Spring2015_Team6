@@ -19,6 +19,7 @@ void StructManager::buildList(CellPhone* phone)
 {
 	main_BST->insert(*phone);
 	hash_Table->hash_insert(hashGenerator, phone);
+	//secondary_BST->insert2(*phone);
 }
 
 //**************************************************************

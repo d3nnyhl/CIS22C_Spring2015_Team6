@@ -26,7 +26,8 @@ public:
 	void printTable(void print(ItemType &anItem));
 	void printHashT(void print(ItemType &anItem));
 	bool hash_insert(int getHash(const KeyType &id, const int &size), ItemType *item);
-	bool hash_search(int getHash(const KeyType &id, const int &size), ItemType &targetItem, ItemType &returnItem);	
+	bool hash_search(int getHash(const KeyType &id, const int &size), ItemType &targetItem, ItemType &returnItem);
+	bool hash_delete(int getHash(const KeyType &id, const int &size), ItemType* item, const ItemType &returnItem);
 	//	bool hash_delete(const ItemType &item);
 };
 
@@ -53,7 +54,6 @@ bool Hash<ItemType, KeyType>::hash_insert(int getHash(const KeyType &id, const i
 template<class ItemType, class KeyType>
 bool Hash<ItemType, KeyType>::hash_search(int getHash(const KeyType &id, const int &size), ItemType &targetItem, ItemType &returnItem)
 {
-	//not implemented.
 	int index = getHash(targetItem.getID(), tableSize);
 	if (list[index].empty())
 		return false;
@@ -65,8 +65,42 @@ bool Hash<ItemType, KeyType>::hash_search(int getHash(const KeyType &id, const i
 			return true;
 		}
 	}
+	for (int x = 0; x < overflow_Area.size(); x++)
+	{
+		if (overflow_Area[x].getID() == targetItem.getID())
+		{
+			returnItem = overflow_Area[x];
+			return true;
+		}
+	}
 	return false;
 }
+
+template<class ItemType, class KeyType>
+bool Hash<ItemType, KeyType>::hash_delete(int getHash(const KeyType &id, const int &size), ItemType* item, const ItemType &returnItem)
+{
+	int index = getHash(item->getID(), tableSize);
+	for (int x = 0, x < list[index].size(); x++)
+	{
+		if (list[index][x].getID() == item->getID())
+		{
+			returnItem = list[index][x];
+			list[index].erase(x);
+			return true;
+		}
+	}
+	for (int x = 0; x < overflow_Area.size(); x++)
+	{
+		if (overflow_Area[x].getID() == item->getID())
+		{
+			returnItem = overflow_Area[x];
+			overflow_Area.erase(x);
+			return true;
+		}
+	}
+	return false;
+}
+
 
 //**************************************************************
 // This function prints every item in the table
