@@ -37,18 +37,25 @@ public:
 	void setApps(int apps){ this->apps = apps; }
 	void setSongs(int songs){ this->songs = songs; }
 
+	friend int compareString(string string1, string string2, int flag);
 	//Overloaded operators
+	bool operator<=(const CellPhone &right){ return (name.compare(right.name) <= 0); }
+	bool operator!= (const CellPhone &right){ return (name.compare(right.name) != 0); }
 
-	//Overloaded operators
-	bool CellPhone::operator> (const CellPhone &right){ return (id.compare(right.id) > 0); }
-	bool CellPhone::operator==(const CellPhone &right){ return (id.compare(right.id) == 0); }
-	bool CellPhone::operator< (const CellPhone &right){ return (id.compare(right.id) < 0); }
-	bool CellPhone::operator<=(const CellPhone &right){ return (id.compare(right.id) <= 0); }
-	bool CellPhone::operator>=(const CellPhone &right){ return (id.compare(right.id) >= 0); }
 
-	//Destrcutor
+	//bool operator+= (const CellPhone &right){ return (name.compare(right.name) == 0); }
+
+	bool operator> (const CellPhone &right){ return (id.compare(right.id) > 0); }
+	bool operator==(const CellPhone &right){ return (id.compare(right.id) == 0); }
+	bool operator< (const CellPhone &right){ return (id.compare(right.id) < 0); }
+	//bool operator<=(const CellPhone &right){ return (id.compare(right.id) <= 0); }
+	bool operator>=(const CellPhone &right){ return (name.compare(right.name) >= 0); }
+
+
+	//Destructor
 	~CellPhone(){};
 
 };
+
 
 #endif

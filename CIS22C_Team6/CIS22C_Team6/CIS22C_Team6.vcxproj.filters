@@ -44,6 +44,9 @@
     <Text Include="cellphones.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="cellphone_output.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cellphone.cpp">
