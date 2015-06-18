@@ -1,13 +1,9 @@
-//
-//  main.cpp
-//  team_project
-//
-//  Created by Sam Singh on 6/9/15.
-//  Copyright (c) 2015 Sam Singh. All rights reserved.
-//
-
+//**************************************************************
+//  
+//**************************************************************
 #include <iostream>
 #include "StructManager.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -16,8 +12,9 @@ int fileCount(ifstream &inFile);
 void readFile(StructManager* structManager, ifstream &inFile);
 int hashGenerator(const string& key, const int &arraySize);
 void displayPhone(CellPhone & anItem);
+void simpDisplay(CellPhone & anItem);
+int compareString(void* tLeft, void* tRight, void* mode);
 void farewell();
-
 
 const unsigned int HASH_TABLE_SIZE = 100;	  // For testing purposes; must write function to determine hash table size.
 const string fileName = "cellphones.txt";
@@ -30,27 +27,34 @@ int main()
 
 	if (!inFile)
 	{
-		cout << "Error opening the input file.\n";
+		cout << "=================================\n"
+			 << "== F I L E   N O T   F O U N D ==\n"
+			 << "=================================\n";
+			system("pause");
+			return 0;
 	}
 	else
 	{
-		StructManager *driver = new StructManager(fileCount(inFile), displayPhone, hashGenerator);
+		StructManager *driver = new StructManager(fileCount(inFile), displayPhone, simpDisplay, hashGenerator, compareString);
 		readFile(driver, inFile);
 		driver->menuManager();
 	}
 	inFile.close();
 	farewell();
-
-	//system("pause");
+	system("pause");
 	return 0;
 }
 
 //**************************************************************
 //	Prints welcome message.
 //**************************************************************
-
 void welcome()
 {
+	cout << "==========================================\n" 
+	     << "======      W  E  L  C  O M  E      ======\n" 
+	     << "==========================================\n";
+	
+	/*
 	cout << "Welcome!\n";
 	cout << "This is Team 6's project for the Spring 2015 CIS 22C class.\n";
 	cout << "This program maintains a list of cell phones available in the market\n";
@@ -59,26 +63,26 @@ void welcome()
 	cout << "Collisions are resolved buckets.\n\n";
 	cout << "INPUT FILE NAME IS: cellphones.txt\n\n";
 	cout << "Developed by: Sam Singh, Eric Du, Gideon Ubaldo and Denny Hung.\n\n";
+*/
 }
 
 //**************************************************************
 //	Gets amount of items in the input file.
 //**************************************************************
-
 int fileCount(ifstream &inFile) {
 	string lineCount;
 	int count = 0;
-	while (getline(inFile, lineCount)) {
+	while (getline(inFile, lineCount)){
 		count++;
 	}
 	inFile.close();
 	inFile.open(fileName);
 	return count;
 }
+
 //**************************************************************
 //	Function that reads input from file.
 //**************************************************************
-
 void readFile(StructManager *structManager, ifstream &inFile)
 {
 	// local variables to store input from file.
@@ -95,12 +99,8 @@ void readFile(StructManager *structManager, ifstream &inFile)
 		getline(inFile, model, ';');
 		inFile >> memory >> apps >> songs;
 		inFile.get();
-			
 		CellPhone *newCellPhone = new CellPhone(id, name, model, memory, apps, songs);
-
 		structManager->buildList(newCellPhone);
-
-		delete newCellPhone;
 	}
 }
 
@@ -109,11 +109,22 @@ void readFile(StructManager *structManager, ifstream &inFile)
 //**************************************************************
 void displayPhone(CellPhone & anItem)
 {
-	cout << fixed << setprecision(1);
-	cout  << anItem.getID() << " " << anItem.getName() << " " << anItem.getModel()  << " ";
-	cout << anItem.getMemory() << " " << anItem.getApps()  << " " << anItem.getSongs() << " " << endl;
+    //cout << fixed << setprecision(1);
+    cout << left << setw(8) << anItem.getID() << " " << left << setw(11) << anItem.getName() << " " << left << setw(16) << anItem.getModel()  << " ";
+    cout << left << setw(8) << anItem.getMemory() << " " << left << setw(6) << anItem.getApps() << left << setw(5) << anItem.getSongs() << " " << endl;
 }
 
+
+//**************************************************************
+//	Displays an item PART 2. //Under construction
+//**************************************************************
+void simpDisplay(CellPhone &anItem)
+{
+	cout << anItem.getID() << " " << anItem.getName() << endl;
+}
+//**************************************************************
+//  Hash Generator
+//**************************************************************
 int hashGenerator(const string& key, const int &arraySize)
 {
 	unsigned int h = 5381;
@@ -134,5 +145,33 @@ int hashGenerator(const string& key, const int &arraySize)
 //**************************************************************
 void farewell()
 {
-	cout << "Thanks for using our product! Now ending program...\n";
+	cout << "==========================================\n" 
+	     << "=======    G  O  O  D  B  Y  E    ========\n" 
+	     << "==========================================\n";
+}
+
+//TESTING 
+
+int compareString(void* tLeft, void* tRight, void* mode)
+{
+	CellPhone left = *((CellPhone*)tLeft); /// you cannot dereference a void pointer:
+	CellPhone right = *((CellPhone*)tRight); /// cast it first, then dereference it!
+	int flag = *((int*)mode); /// you cannot dereference a void pointer:
+
+	if (flag == 1)
+	{
+		if (left.getID().compare(right.getID()) < 0)
+			return -1;
+		if (left.getID().compare(right.getID()) == 0)
+			return 0;
+		return 1;
+	}
+	else
+	{
+		if (left.getName().compare(right.getName()) < 0)
+			return -1;
+		if (left.getName().compare(right.getName()) == 0)
+			return 0;
+		return 1;
+	}
 }

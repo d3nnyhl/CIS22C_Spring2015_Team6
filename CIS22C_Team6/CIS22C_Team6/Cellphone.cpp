@@ -1,13 +1,17 @@
+//**************************************************************
+//  
+//**************************************************************
+
 #include "CellPhone.h"
-//
+
 CellPhone::CellPhone()
 {
 	id = "";
 	name = "";
 	model = "";
-	memory = 0;
-	apps = 0;
-	songs = 0;
+	memory = 8;
+	apps = 456;
+	songs = 234;
 }
 
 CellPhone::CellPhone(string id, string name, string model, double memory, int apps, int songs)
@@ -20,7 +24,9 @@ CellPhone::CellPhone(string id, string name, string model, double memory, int ap
 	setSongs(songs);
 
 }
-//
+//**************************************************************
+//  
+//**************************************************************
 //CellPhone::~CellPhone()
 //{
 //

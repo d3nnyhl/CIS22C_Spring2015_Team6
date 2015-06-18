@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="cellphones.txt" />
+    <Text Include="cellphone_output.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cellphone.cpp" />
