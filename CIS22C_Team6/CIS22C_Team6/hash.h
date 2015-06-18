@@ -12,7 +12,7 @@
 
 using namespace std;
 
-const int BUCKET_SIZE = 1;
+const int BUCKET_SIZE = 3;
 
 template <class ItemType, class KeyType>
 class Hash
