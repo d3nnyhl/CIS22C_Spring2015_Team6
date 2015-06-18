@@ -152,6 +152,9 @@ void farewell()
 
 //TESTING 
 
+// tLeft and tRight would be CellPhone objects, and mode would be an integer flag (1 if tree is sorted by primary key
+// or 2 if sorted by secondary key).
+
 int compareString(void* tLeft, void* tRight, void* mode)
 {
 	CellPhone left = *((CellPhone*)tLeft); /// you cannot dereference a void pointer:

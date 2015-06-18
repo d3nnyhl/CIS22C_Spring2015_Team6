@@ -305,7 +305,7 @@ void StructManager::getPrimaryKey()
 	cin >> search_ID;
 	cin.ignore();
 
-	for (int i = 0; i < search_ID.length(); i++)
+	for (unsigned int i = 0; i < search_ID.length(); i++)
 	{
 		search_ID[i] = toupper(search_ID[i]);
 	}
@@ -534,9 +534,7 @@ bool StructManager::isPrime(int num)
 //**************************************************************
 StructManager::~StructManager()
 {
-	// work on delete for hash table
-	//delete hash_Table;
-
+	delete hash_Table;
 	delete main_BST;
 	delete secondary_BST;
 }

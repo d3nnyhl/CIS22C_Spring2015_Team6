@@ -24,7 +24,7 @@ private:
 	int itemCount;       	    								// Number of items in the hash table.
 	int collision;
 	vector<ItemType*> overflow_Area;
-	CellPhone Temp;
+	//CellPhone Temp;
 public:
 	//HashTable(int size) { list.resize(size); }
 	Hash(int size) { list = new vector<ItemType*>[size]; tableSize = size; itemCount = 0; collision = 0; }
@@ -37,6 +37,7 @@ public:
 	bool writeTofile();
 	void reHash(int getHash(const KeyType &id, const int &size));
 	void statistics();
+	void destroyTable();
 
 	//getters
 	int getItemCount(){ return itemCount; }
@@ -49,13 +50,15 @@ public:
 template<class ItemType, class KeyType>
 void Hash <ItemType, KeyType>::statistics()
 {
-	double loadedbuckets = 0;
+	int loadedbuckets = 0;
 	int fullbuckets = 0;
+	int item_in_bucket = 0;
 
 	// load factor
 	for (int x = 0; x < tableSize; x++)
 	{
 		if (!list[x].empty()){
+			item_in_bucket += (list[x].size() - 1);
 			loadedbuckets++;
 		}
 		else if (list[x].size() == BUCKET_SIZE)
@@ -64,9 +67,11 @@ void Hash <ItemType, KeyType>::statistics()
 		}
 	}
 	cout << setprecision(2) << fixed;
-	cout << "Load Factor  : " << loadedbuckets / tableSize * 100 << "%\n";
-	cout << "Full Buckets : " << fullbuckets << endl;
-	cout << "Average Node per bucket : " << (double)itemCount / tableSize << endl;
+	cout << "Load Factor  : " << (double)loadedbuckets / tableSize * 100 << "%\n";
+	cout << "Full Buckets : " << fullbuckets << "\n";
+	cout << "Total indexes with items: " << loadedbuckets << "\n";
+	cout << "Average items per bucket: " << (double)item_in_bucket / tableSize << "\n";
+	cout << "Average items per index: " << (double)itemCount / tableSize << "\n";
 }
 //**************************************************************
 //  
@@ -86,7 +91,7 @@ bool Hash <ItemType, KeyType>::writeTofile()
 	outfile << "FCC ID - Make - Model - Memory - Apps - Songs\n";
 	for (int i = 0; i < tableSize; i++)
 	if (!list[i].empty())
-	for (int j = 0; j < list[i].size(); j++)
+	for (unsigned int j = 0; j < list[i].size(); j++)
 	{
 		outfile << left << setw(8) << list[i][j]->getID() << " " << left << setw(11) << list[i][j]->getName() << " " << left << setw(16) << list[i][j]->getModel() << " ";
 		outfile << left << setw(8) << list[i][j]->getMemory() << " " << left << setw(6) << list[i][j]->getApps() << left << setw(5) << list[i][j]->getSongs() << " " << endl;
@@ -98,7 +103,7 @@ bool Hash <ItemType, KeyType>::writeTofile()
 			<< "============================================\n";
 		for (int i = 0; i < tableSize; i++)
 		if (!list[i].empty())
-		for (int j = 0; j < overflow_Area.size(); j++)
+		for (unsigned int j = 0; j < overflow_Area.size(); j++)
 		{
 			outfile << left << setw(8) << list[i][j]->getID() << " " << left << setw(11) << list[i][j]->getName() << " " << left << setw(16) << list[i][j]->getModel() << " ";
 			outfile << left << setw(8) << list[i][j]->getMemory() << " " << left << setw(6) << list[i][j]->getApps() << left << setw(5) << list[i][j]->getSongs() << " " << endl;
@@ -122,12 +127,32 @@ bool Hash<ItemType, KeyType>::hash_insert(int getHash(const KeyType &id, const i
 	else if (list[index].size() < BUCKET_SIZE)
 	{
 		list[index].push_back(item);
+
 		collision++;
 		itemCount++;
+
+		// Keep buckets sorted.	Doesn't work.
+		/*int swap_iter = 1;
+		if (list[index].size() > 2 && *list[index][BUCKET_SIZE - swap_iter] < *list[index][BUCKET_SIZE - (swap_iter + 1)])
+		{
+			ItemType* temp = list[index][BUCKET_SIZE - swap_iter];
+			list[index][BUCKET_SIZE - swap_iter] = list[index][BUCKET_SIZE - (swap_iter + 1)];
+			list[index][BUCKET_SIZE - (swap_iter + 1)] = temp;
+		}*/
 	}
 	else if (list[index].size() == BUCKET_SIZE)
 	{
 		overflow_Area.push_back(item);
+		//int size = overflow_Area.size();
+
+		//// Keep overflow area sorted.
+		//while ( size > 2 && *overflow_Area[size - 1] < *list[index][size - 2])
+		//{
+		//	ItemType* temp = overflow_Area[size - 1];
+		//	overflow_Area[size - 1] = list[index][size - 2];
+		//	overflow_Area[size - 2] = temp;
+		//}
+
 		collision++;
 		itemCount++;
 	}
@@ -151,7 +176,7 @@ bool Hash<ItemType, KeyType>::hash_search(int getHash(const KeyType &id, const i
 			return true;
 		}
 	}
-	for (int x = 0; x < overflow_Area.size(); x++)
+	for (unsigned int x = 0; x < overflow_Area.size(); x++)
 	{
 		if (overflow_Area[x]->getID() == targetItem.getID())
 		{
@@ -172,14 +197,14 @@ void Hash<ItemType, KeyType>::printTable(void print(ItemType &anItem))
 {
 	for (int i = 0; i < tableSize; i++)
 	if (!list[i].empty())
-	for (int j = 0; j < list[i].size(); j++)
+	for (unsigned int j = 0; j < list[i].size(); j++)
 		print(*list[i][j]);
 	if (overflow_Area.size() > 0)
 	{
 		cout << "============================================\n"
 			<< "=== O  V  E  R  F  L  O  W    A  R  E  A ===\n"
 			<< "============================================\n";
-		for (int z = 0; z < overflow_Area.size(); z++)
+		for (unsigned int z = 0; z < overflow_Area.size(); z++)
 			print(*overflow_Area[z]);
 	}
 	else
@@ -216,7 +241,7 @@ void Hash<ItemType, KeyType>::printHashT(void print(ItemType &anItem))
 		cout << "============================================\n"
 			<< "=== O  V  E  R  F  L  O  W    A  R  E  A ===\n"
 			<< "============================================\n";
-		for (int z = 0; z < overflow_Area.size(); z++)
+		for (unsigned int z = 0; z < overflow_Area.size(); z++)
 			print(*overflow_Area[z]);
 	}
 	else
@@ -234,7 +259,7 @@ template<class ItemType, class KeyType>
 bool Hash<ItemType, KeyType>::hash_delete(int getHash(const KeyType &id, const int &size), ItemType *item, ItemType &returnedItem)
 {
 	int index = getHash(item->getID(), tableSize);
-	for (int x = 0; x < list[index].size(); x++)
+	for (unsigned int x = 0; x < list[index].size(); x++)
 	{
 		if (list[index][x]->getID() == item->getID())
 		{
@@ -252,7 +277,23 @@ bool Hash<ItemType, KeyType>::hash_delete(int getHash(const KeyType &id, const i
 	}
 	return false;
 }
-
+template<class ItemType, class KeyType>
+void Hash<ItemType, KeyType>::destroyTable()
+{
+	for (unsigned int count = 0; count < list->size(); count++)
+	{
+		for (unsigned int element = 0; element < list[count].size(); count++)
+		{
+			list[count][element] = NULL;
+			delete list[count][element];
+		}
+	}
+	for (unsigned int count = 0; count < overflow_Area.size(); count++)
+	{
+		overflow_Area[count] = NULL;
+		delete overflow_Area[count];
+	}
+}
 
 template<class ItemType, class KeyType>
 void Hash<ItemType, KeyType>::reHash(int getHash(const KeyType &id, const int &size))
@@ -293,14 +334,12 @@ void Hash<ItemType, KeyType>::reHash(int getHash(const KeyType &id, const int &s
 	//cout << "New Hash Table Size: " << arraySize << endl;
 
 }
-//**************************************************************
-//  
-//**************************************************************
-//template<class ItemType, class KeyType>
-//Hash::~Hash()
-//{
-//	delete list[];
-//	delete overflow_Area[];
-//
-//}
+
+template<class ItemType, class KeyType>
+Hash<ItemType, KeyType>::~Hash()
+{
+	destroyTable();
+	delete list;
+
+}
 #endif 

@@ -52,7 +52,7 @@ private:
 	BinaryNode<ItemType>  *_remove2(BinaryNode<ItemType> *nodePtr, const ItemType target, bool & success);
 
 public:
-
+	//TEST
 	BinarySearchTree(int(*cmp) (void* argu1, void* argu2, void* argu3)){ compareID = cmp; }
 	//////////
 	bool insert2(const ItemType *newEntry);
