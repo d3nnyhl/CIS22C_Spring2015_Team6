@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FA144B2D-D2E0-4FB4-8005-DB0E0FDA979F}</ProjectGuid>
+    <ProjectGuid>{B3E40E2D-11EF-422D-AECC-A5E5DE9F5B0B}</ProjectGuid>
     <RootNamespace>CIS22C_Team6</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -64,11 +64,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cellphone.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="StructManager.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="BinaryNode.h" />
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="BinaryTree.h" />
@@ -77,6 +72,14 @@
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StructManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="cellphones.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Cellphone.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="StructManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

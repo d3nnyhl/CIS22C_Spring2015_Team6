@@ -33,7 +33,7 @@ WH1210;Amazon;Fire;32 86 396
 BS20CW;BlackBerry;Pearl 8130;0.06 15 19
 CHI605;Samsung;Galaxy Note II;16 67 241
 P56LF1;Motorola;Citrus;0.125 25 140
-E2817A;Apple;iPhone 6 Plus;128 149 1712
+E2827A;Apple;iPhone 6 Plus;128 149 1712
 RAD136;Alcatel;OneTouch Sparq;0.03 10 8
 CHR570;Samsung;R570;0.1 34 102
 PFH100;HTC;Desire Eye;16 84 345
